@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: white;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: calc(100vh - constant(safe-area-inset-top) - constant(safe-area-inset-bottom));
+            border: 2px solid #333;
+            border-radius: 24px; /* Updated corner radius */
+            margin-bottom: 10px;
+        }
+
+        #image-container {
+            margin-top: 20px;
+        }
+
+        #image-text {
+            font-size: 16px;
+            margin-top: 10px;
+            white-space: pre-line;
+        }
+
+        #generate-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #generate-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="image-container">
+    <img id="random-image" src="" alt="Random Image">
+    <p id="image-text"></p>
+</div>
+
+<button id="generate-button" onclick="generateRandomImage()">Generate Random Image</button>
+
+<script>
+    // Array of image filenames, corresponding text, and vowel info
+    var imageArray = [
+        { filename: 'sunf-1-eldrazi-guacamole-tightrope.jpg', text: 'Eldrazi Guacamole Tightrope', vowels: { first: 3, second: 4, third: 3, max: 4 } },
+        { filename: 'sunf-5-misunderstood-trapeze-elf.jpg', text: 'Misunderstood Trapeze Elf', vowels: { first: 4, second: 2, third: 1, max: 4 } },
+        { filename: 'sunf-12-narrow-minded-baloney-fireworks.jpg', text: 'Narrow-Minded Baloney Fireworks', vowels: { first: 4, second: 4, third: 3, max: 4 } },
+        { filename: 'sunf-13-unsanctioned-ancient-juggler.jpg', text: 'Unsanctioned Ancient Juggler', vowels: { first: 5, second: 3, third: 2, max: 5 } },
+        { filename: 'sunf-18-phyrexian-midway-bamboozle.jpg', text: 'Phyrexian Midway Bamboozle', vowels: { first: 4, second: 3, third: 3, max: 4 } },
+        { filename: 'sunf-22-cursed-firebreathing-yogurt.jpg', text: 'Cursed Firebreathing Yogurt', vowels: { first: 2, second: 3, third: 3, max: 3 } },
+        { filename: 'sunf-23-ancestral-hot-dog-minotaur.jpg', text: 'Ancestral Hot-Dog Minotaur', vowels: { first: 2, second: 1, third: 4, max: 4 } },
+        { filename: 'sunf-30-playable-delusionary-hydra.jpg', text: 'Playable Delusionary Hydra', vowels: { first: 3, second: 6, third: 2, max: 6 } },
+        { filename: 'sunf-36-unassuming-gelatinous-serpent.jpg', text: 'Unassuming Gelatinous Serpent', vowels: { first: 3, second: 5, third: 1, max: 5 } },
+        { filename: 'sunf-45-unglued-pea-brained-dinosaur.jpg', text: 'Unglued Pea-Brained Dinosaur', vowels: { first: 2, second: 3, third: 4, max: 4 } }
+    ];
+
+    var lastRandomIndex = -1; // Initialize with an index that is out of bounds
+
+    // Function to generate and display a random image
+    function generateRandomImage() {
+        var randomIndex;
+
+        do {
+            randomIndex = Math.floor(Math.random() * imageArray.length);
+        } while (randomIndex === lastRandomIndex);
+
+        lastRandomIndex = randomIndex;
+
+        // Get the random image filename, text, and vowel info
+        var randomImage = 'img/' + imageArray[randomIndex].filename;
+        var randomText = imageArray[randomIndex].text;
+        var vowelInfo = imageArray[randomIndex].vowels;
+
+        // Set the image source
+        var imageElement = document.getElementById('random-image');
+        imageElement.src = randomImage;
+
+        // Display corresponding text with vowel count info
+        var imageTextElement = document.getElementById('image-text');
+        imageTextElement.innerHTML = randomText + '<br>First vowels: ' + vowelInfo.first + ', Second vowels: ' + vowelInfo.second + ', Third vowels: ' + vowelInfo.third + ', Max vowels: ' + vowelInfo.max;
+    }
+
+    // Initial image generation
+    generateRandomImage();
+</script>
+
+</body>
+</html>
